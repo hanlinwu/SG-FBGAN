@@ -1,0 +1,7 @@
+easydict
+numpy
+opencv-python
+tensorflow==1.14.0
+tensorlayer==1.11.0
+tqdm
+wget

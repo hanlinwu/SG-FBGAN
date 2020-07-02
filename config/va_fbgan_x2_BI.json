@@ -1,0 +1,34 @@
+{
+    "notes": "",
+    "gpu_to_use": "0",
+    "max_to_keep": 100,
+    "data_path": "data/sr_geo.npz",
+    "data_url" : "https://hlwu.bj.bcebos.com/sr_geo.npz",
+    "model" : "VA_FBGAN",
+    "exp_name": "",
+    "is_continue_train" : false,
+    "MODEL": {
+        "channel_num": 32,
+        "itr": 3,
+        "g_gan_loss_alpha": 1e-05,
+        "g_gan_loss_whattouse": [
+            "sa",
+            "no",
+            "global"
+        ],
+        "upscale": 2,
+        "lr_image_size": 128,
+        "D": 2,
+        "C": 3
+    },
+    "TRAIN": {
+        "batch_size": 5,
+        "lr_init": 0.001,
+        "beta1": 0.9,
+        "n_epoch_init": 200,
+        "n_epoch": 2000,
+        "lr_decay": 0.5,
+        "lr_decay_every": 500,
+        "save_model_each": 200
+    }
+}
