@@ -33,17 +33,23 @@ pip install -r requirements.txt
 
 1. Download the pre-trained VA-FBGAN models.
    
-   |    	| x2 	| x3 	| x4 	| x8 	|
-   |----	|----	|----	|----	|----	|
-   | BI 	|    	|    	|    	|    	|
-   | DN 	|    	|    	|    	|    	|
+- BI degradation
+  - x2: [BI_x2.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/BI_x2.zip)
+  - x3: [BI_x3.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/BI_x3.zip)
+  - x4: [BI_x4.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/BI_x4.zip)
+  - x8: [BI_x8.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/BI_x8.zip)
+- DN degradation
+  - x2: [DN_x2.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/DN_x2.zip)
+  - x3: [DN_x3.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/DN_x3.zip)
+  - x4: [DN_x4.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/DN_x4.zip)
+  - x8: [DN_x8.zip](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/DN_x8.zip)
 
-2. Put the pre-trained model on path : `experiments/exp_name`
-3. Do testing: 
+1. Unzip the the downloaded file, and put the pre-trained model on path : `experiments/exp_name`
+2. Do testing: 
     ```
     python predict.py --opt exp_name
     ```
-    **Note:** The dataset will be downloaded automatically. If the download fails, please download it manually from __, and then put the downloaded file on path : `data/sr_geo.npz`.
+    **Note:** The GeoEye-1 dataset will be downloaded automatically. If the download fails, please download it manually from [here](https://github.com/BNUAI/VA-FBGAN/releases/download/v1.0/sr_geo.npz), and then put the downloaded file on path : `data/sr_geo.npz`.
 
 ### Train with our GeoEye dataset:
 
