@@ -7,32 +7,62 @@ This repository is build for the proposed VA-FBGAN, which contains full training
 
 ![framework](/_images/framework.png)
 
-## Performance
-coming soon...
-
 ## Usage
 
 ### Clone the repository:
 
-> git clone https://github.com/BNUAI/VA-FBGAN.git
- 
+```
+git clone https://github.com/BNUAI/VA-FBGAN.git
+```
+
 ### Requirement:
 
-> pip install -r requirements.txt
+- tensorflow==1.14.0
+- tensorlayer==1.11.0
+- numpy
+- easydict
+- opencv-python
+- tqdm
+- wget
+
+```
+pip install -r requirements.txt
+```
 
 ### Test with our pre-trained models:
 
-Download the pre-trained VA-FBGAN models, and then do testing:
+1. Download the pre-trained VA-FBGAN models.
+   
+   |    	| x2 	| x3 	| x4 	| x8 	|
+   |----	|----	|----	|----	|----	|
+   | BI 	|    	|    	|    	|    	|
+   | DN 	|    	|    	|    	|    	|
 
-> python predict.py --opt exp_name
+2. Put the pre-trained model on path : `experiments/exp_name`
+3. Do testing: 
+    ```
+    python predict.py --opt exp_name
+    ```
+    **Note:** The dataset will be downloaded automatically. If the download fails, please download it manually from __, and then put the downloaded file on path : `data/sr_geo.npz`.
 
 ### Train with our GeoEye dataset:
 
-> python train.py --opt config/va_fbgan_x3_BI.json
+```
+python train.py --opt config/va_fbgan_x3_BI.json
+```
 
-### Train with your own dataset:
+### Train with your onw dataset:
 
-> python train.py --opt config/va_fbgan_x3_BI.json
+1. change the `datapath` and `savepath` in `data_loader/make_npz.py`, and then make the `.npz` file:
+   
+   ```
+   python data_loader/make_npz.py
+   ```
+2. change the `data_path` in `config/your_own_config_file.json`.
+3. Do training:
+   ```
+   python train.py --opt config/your_own_config_file.json
+   ```
 
-## Citation
-coming soon...
+## Contact
+- Hanlin Wu (hanlinwu@mail.bnu.edu.cn)
