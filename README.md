@@ -57,7 +57,7 @@ pip install -r requirements.txt
 python train.py --opt config/va_fbgan_x3_BI.json
 ```
 
-### Train with your onw dataset:
+### Train with your own dataset:
 
 1. change the `datapath` and `savepath` in `data_loader/make_npz.py`, and then make the `.npz` file:
    
