@@ -10,6 +10,7 @@ class Data():
         self.batch_size = config.TRAIN.batch_size
         self.lr_img_size = config.MODEL.lr_image_size
         self.upscale = config.MODEL.upscale
+        self.in_channel = config.MODEL.in_channel
         self.hr_img_size = self.lr_img_size * self.upscale
         self.batch_size = config.TRAIN.batch_size
         self.degradation_model = config.MODEL.degradation_model
@@ -26,7 +27,7 @@ class Data():
         train_raw = data['train'][()]
         valid_raw = data['valid'][()]
 
-        train_hr = train_raw['hr'] 
+        train_hr = train_raw['hr']
         train_sal = train_raw['sal_map']
 
         valid_hr = valid_raw['hr']
@@ -66,7 +67,7 @@ class Data():
         return img
 
     def _add_gauss_noise(self, img, level):
-        noise = np.random.normal(0,  level / 255., (img.shape[0], img.shape[1]))
+        noise = np.random.normal(0,  level / 255., img.shape)
         noise = np.expand_dims(noise, axis = 2)
         img_noise = img + noise
         img_noise = img_noise.clip(-1, 1)
@@ -77,8 +78,8 @@ class Data():
         sal = sal / 255.
         hr_sal_concat = np.concatenate((hr, sal), axis=2)
         hr_sal_concat = crop(hr_sal_concat, self.hr_img_size, self.hr_img_size, True)
-        hr_img = np.expand_dims(hr_sal_concat[:,:,0], axis = 2)
-        hr_sal = np.expand_dims(hr_sal_concat[:,:,1], axis = 2)
+        hr_img = hr_sal_concat[:,:,0:self.in_channel]
+        hr_sal = np.expand_dims(hr_sal_concat[:,:,self.in_channel], axis = 2)
         lr_sal = self._imresize(hr_sal, self.lr_img_size, range=[0, 1])
 
         if self.degradation_model == "DN":
@@ -118,8 +119,8 @@ class Data():
 
         hr_sal_concat = hr_sal_concat[0:sr_image_size, 0:sr_image_size]
 
-        hr_img = np.expand_dims(hr_sal_concat[:,:,0], axis = 2)
-        hr_sal = np.expand_dims(hr_sal_concat[:,:,1], axis = 2)
+        hr_img = hr_sal_concat[:,:,0:self.in_channel]
+        hr_sal = np.expand_dims(hr_sal_concat[:,:,self.in_channel], axis = 2)
         lr_sal = self._imresize(hr_sal, lr_image_size, range = [0, 1])
 
         if self.degradation_model == "DN":
@@ -134,9 +135,9 @@ class Data():
             hr_blur = hr_blur / 127.5 - 1.
             hr_blur_sal_concat = np.concatenate((hr, hr_blur, sal), axis=2)
             hr_blur_sal_concat = hr_blur_sal_concat[0:sr_image_size, 0:sr_image_size]
-            hr_img = np.expand_dims(hr_blur_sal_concat[:,:,0], axis = 2)
-            hr_img_blur = np.expand_dims(hr_blur_sal_concat[:,:,1], axis = 2)
-            hr_sal = np.expand_dims(hr_blur_sal_concat[:,:,2], axis = 2)
+            hr_img = np.expand_dims(hr_blur_sal_concat[:,:,0:self.in_channel], axis = 2)
+            hr_img_blur = np.expand_dims(hr_blur_sal_concat[:,:,self.in_channel:2*self.in_channel], axis = 2)
+            hr_sal = np.expand_dims(hr_blur_sal_concat[:,:,2*self.in_channel], axis = 2)
             lr_img = self._imresize(hr_img_blur, lr_image_size)
             lr_sal = self._imresize(hr_sal, lr_image_size, range=[0, 1])
             return hr_img, hr_sal, lr_img, lr_sal, hr_img_blur
@@ -144,4 +145,4 @@ class Data():
         elif self.degradation_model == "BI":
             # standart degratdation model
             lr_img = self._imresize(hr_img, lr_image_size)
-            return hr_img, hr_sal, lr_img, lr_sal, hr_img
+            return hr_img, hr_sal, lr_img, lr_sal, np.zeros([1, 1, 1])

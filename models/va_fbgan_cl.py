@@ -15,8 +15,8 @@ class VA_FBGAN_CL(VA_FBGAN):
         self.is_train = True #self.config.is_train
 
         ###========================== INPUT OPTS ==========================###
-        self.lr_img = tf.placeholder('float32', [None, None, None, 1], name='lr_img')
-        self.hr_img = tf.placeholder('float32', [None, None, None, 1], name='hr_img')
+        self.lr_img = tf.placeholder('float32', [None, None, None, self.in_channel], name='lr_img')
+        self.hr_img = tf.placeholder('float32', [None, None, None, self.in_channel], name='hr_img')
 
         self.lr_sal = tf.placeholder('float32', [None, None, None, 1], name = 'lr_sal')
         self.hr_sal = tf.placeholder('float32', [None, None, None, 1], name = 'hr_sal')

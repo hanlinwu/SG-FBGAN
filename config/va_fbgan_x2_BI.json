@@ -8,6 +8,7 @@
     "exp_name": "",
     "is_continue_train" : false,
     "MODEL": {
+        "in_channel" : 1,
         "channel_num": 32,
         "itr": 3,
         "g_gan_loss_alpha": 1e-05,

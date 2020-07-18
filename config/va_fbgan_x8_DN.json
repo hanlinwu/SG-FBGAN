@@ -8,6 +8,7 @@
     "exp_name": "",
     "is_continue_train" : false,
     "MODEL": {
+        "in_channel" : 1,
         "degradation_model" : "DN",
         "gauss_level" : 60,
         "channel_num": 64,

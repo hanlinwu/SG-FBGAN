@@ -12,6 +12,7 @@ class VA_FBGAN(BaseModel):
     def __init__(self, config):
         super(VA_FBGAN, self).__init__(config)
         self.upscale = config.MODEL.upscale
+        self.in_channel = config.MODEL.in_channel
         #Adam Parameters Setting
         self.lr_init = tf.Variable(self.config.TRAIN.lr_init, trainable= False, name = "lr_init")
         self.beta1 = config.TRAIN.beta1
@@ -71,7 +72,7 @@ class VA_FBGAN(BaseModel):
             with tf.variable_scope("Recons_block_{0}".format(scope_name), reuse = reuse):
                 # stride control the magnification times
                 HR_res = DeConv2d(F_in, n_filter= 32, filter_size= (upscale, upscale), strides= (upscale, upscale), padding='SAME', act= lrelu, name = 'de_convolution')
-                HR = Conv2d(HR_res, 1, (3, 3), (1, 1), act=tf.nn.tanh, padding='SAME', W_init=w_init, name='conv_3x3')
+                HR = Conv2d(HR_res, self.in_channel, (3, 3), (1, 1), act=tf.nn.tanh, padding='SAME', W_init=w_init, name='conv_3x3')
             return HR
 
         s_map = tf.tile(s_map, [1, 1, 1, 2*m])
@@ -122,8 +123,8 @@ class VA_FBGAN(BaseModel):
         self.is_train = True #self.config.is_train
 
         ###========================== INPUT OPTS ==========================###
-        self.lr_img = tf.placeholder('float32', [None, None, None, 1], name='lr_img')
-        self.hr_img = tf.placeholder('float32', [None, None, None, 1], name='hr_img')
+        self.lr_img = tf.placeholder('float32', [None, None, None, self.in_channel], name='lr_img')
+        self.hr_img = tf.placeholder('float32', [None, None, None, self.in_channel], name='hr_img')
 
         self.lr_sal = tf.placeholder('float32', [None, None, None, 1], name = 'lr_sal')
         self.hr_sal = tf.placeholder('float32', [None, None, None, 1], name = 'hr_sal')
