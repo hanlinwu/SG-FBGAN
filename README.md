@@ -1,4 +1,4 @@
-# Remote Sensing Image Super-Resolution via Visual Attention Mechanism and Feedback GANs
+# Remote Sensing Image Super-Resolution via Saliency-Guided Feedback GANs
 
 by Hanlin Wu, Libao Zhang, and Jie Ma, details are in paper.
 
