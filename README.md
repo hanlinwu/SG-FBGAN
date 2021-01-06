@@ -69,6 +69,9 @@ python train.py --opt config/va_fbgan_x3_BI.json
    ```
    python train.py --opt config/your_own_config_file.json
    ```
+   
+### Cite
+H. Wu, L. Zhang and J. Ma, "Remote Sensing Image Super-Resolution via Saliency-Guided Feedback GANs," in IEEE Transactions on Geoscience and Remote Sensing, doi: 10.1109/TGRS.2020.3042515.
 
 ## Contact
 - Hanlin Wu (hanlinwu@mail.bnu.edu.cn)
